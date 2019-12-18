@@ -1,12 +1,14 @@
 package com.bigduu.acp.entiry;
 
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public abstract class Subject {
+@Builder
+public abstract class Subject<T> {
     /**
      * 分数
      */
@@ -39,6 +41,12 @@ public abstract class Subject {
         List<String> answer = this.getAnswer();
         List<String> solution = this.getSolution();
         return answer.equals(solution);
+    }
+    
+    public T build(String question,List<String> options){
+        this.question = question;
+        this.options = options;
+        return (T) this;
     }
     
 }

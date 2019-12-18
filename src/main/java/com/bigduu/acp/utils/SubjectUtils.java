@@ -3,6 +3,7 @@ package com.bigduu.acp.utils;
 import com.bigduu.acp.entiry.SingleChoiceSubject;
 import com.bigduu.acp.entiry.Subject;
 import lombok.Data;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,42 +22,52 @@ public class SubjectUtils {
     private static String MULTIPLE_CHOICE = "多选题";
     private static String JUDGE = "判断题";
     
-    private static String NUMBER = "^\\d";
+    private static String NUMBER = "^\\d+.*";
     private static String CHAR = "";
     
+    private Subject.SubjectBuilder<Object> builder;
     
-    private Boolean singleChoiceFlag;
-    private Boolean MultipleChoiceFlag;
-    private Boolean JudgeFlag;
+    
     private Boolean finish;
-    private SingleChoiceSubject singleChoiceSubject = null;
-    private String tmp;
+    
+    
+    public void judgeSubject(XWPFParagraph paragraph){
+        String text = paragraph.getText();
+        setBuilder(text, SINGLE_CHOICE);
+        setBuilder(text, MULTIPLE_CHOICE);
+        setBuilder(text, JUDGE);
+        bulidSubject(paragraph, text);
+    }
+    
+    private void bulidSubject(XWPFParagraph paragraph, String text) {
+        if (isQuestion(paragraph)){
+            this.builder.question(text);
+        }else {
+            List<String> options = getOptions(text);
+            this.builder.options(options);
+        }
+    }
+    
+    private void setBuilder(String text, String singleChoice) {
+        if (text.contains(singleChoice)) {
+            this.builder = SingleChoiceSubject.builder();
+        }
+    }
+    
+    private List<String> getOptions(String text){
+        String[] s = text.split(" ");
+        return Arrays.asList(s);
+    
+    }
     
     
     /**
-     * @param paragraph 传入段落
-     * @return
+     * 判断题号 来判断是否是问题
+     * @param paragraph poi 框架的段落
+     * @return 是问题 返回true 不是 就返回false
      */
-    public Subject judgeSubject(String paragraph){
-        boolean startWithNumber = Pattern.matches(NUMBER, paragraph);
-        if (startWithNumber){
-            tmp = paragraph;
-        } else {
-            if (paragraph.contains(SINGLE_CHOICE)){
-        
-            }
-        }
-        return null;
+    private Boolean isQuestion(XWPFParagraph paragraph){
+        return Pattern.matches(NUMBER, paragraph.getText());
     }
-    
-    private Subject getSingleChoice(String question,String options){
-            singleChoiceSubject = new SingleChoiceSubject();
-            singleChoiceSubject.setQuestion(question);
-            String[] split = options.split(" ");
-            List<String> strings = Arrays.asList(split);
-            singleChoiceSubject.setAnswer(strings);
-            return singleChoiceSubject;
-    }
-    
     
 }
