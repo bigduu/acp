@@ -23,29 +23,29 @@ public class SubjectUtils {
     private static String JUDGE = "判断题";
     
     private static String NUMBER = "^\\d+.*";
-    private static String CHAR = "";
+    private static String SPLIT = " ";
     
-    private Subject.SubjectBuilder<Object> builder;
-    
-    
+    private Subject.SubjectBuilder builder;
     private Boolean finish;
+    private String tmpQuestion;
+    
     
     
     public void judgeSubject(XWPFParagraph paragraph){
+        if (isQuestion(paragraph)){
+            this.tmpQuestion = paragraph.getText();
+        }
         String text = paragraph.getText();
         setBuilder(text, SINGLE_CHOICE);
         setBuilder(text, MULTIPLE_CHOICE);
         setBuilder(text, JUDGE);
-        bulidSubject(paragraph, text);
+        buildSubject(text);
     }
     
-    private void bulidSubject(XWPFParagraph paragraph, String text) {
-        if (isQuestion(paragraph)){
-            this.builder.question(text);
-        }else {
+    private void buildSubject(String text) {
+            this.builder.question(this.tmpQuestion);
             List<String> options = getOptions(text);
             this.builder.options(options);
-        }
     }
     
     private void setBuilder(String text, String singleChoice) {
@@ -55,7 +55,7 @@ public class SubjectUtils {
     }
     
     private List<String> getOptions(String text){
-        String[] s = text.split(" ");
+        String[] s = text.split(SPLIT);
         return Arrays.asList(s);
     
     }
