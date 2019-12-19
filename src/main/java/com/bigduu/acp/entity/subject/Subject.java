@@ -1,8 +1,7 @@
-package com.bigduu.acp.entiry;
+package com.bigduu.acp.entity.subject;
 
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Subject {
     /**
      * 分数
@@ -26,12 +24,12 @@ public class Subject {
     /**
      * 选项
      */
-    private List<String> options;
+    private List<Option> options;
     
     /**
      * 问题答案
      */
-    private List<String> answer;
+    private List<Option> answer;
     
     /**
      * 用户答案
@@ -42,9 +40,9 @@ public class Subject {
      * @return 判断该题是否正确
      */
     public Boolean isRight(){
-        List<String> answer = this.getAnswer();
+        List<Option> answer = this.getAnswer();
         List<String> solution = this.getSolution();
-        return answer.equals(solution);
+        return this.answer.equals(solution);
     }
     
     

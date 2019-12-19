@@ -1,4 +1,4 @@
-package com.bigduu.acp.entiry;
+package com.bigduu.acp.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
