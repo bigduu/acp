@@ -112,8 +112,8 @@ public class SubjectUtils {
             if (!textHightlightColor.toString().equals("none")){
                 Option option = new Option();
                 String string = run.toString();
-                String trim = string.trim();
-                
+                String removeSpace = removeSpace(string);
+                String trim = removeSpace.trim();
                 setOptionIndex(option, trim);
                 if (option.getIndex() != null){
                     answers.add(option);
@@ -124,10 +124,19 @@ public class SubjectUtils {
     }
     
     private String removeSpace(String text){
-        return null;
+        String replace = text;
+        boolean contains = replace.contains(SPLIT);
+        while (contains){
+            replace = replace.replace(SPLIT, "");
+            contains = replace.contains(SPLIT);
+        }
+        return replace;
     }
     
     private void setOptionIndex(Option option, String trim) {
+        if (trim.isEmpty()){
+            return;
+        }
         if (trim.startsWith("是")){
             option.setIndex(AnswerType.TRUE);
         }else if (trim.startsWith("否")){
