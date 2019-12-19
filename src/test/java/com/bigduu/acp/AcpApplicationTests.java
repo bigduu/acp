@@ -5,6 +5,7 @@ import com.bigduu.acp.entity.subject.Option;
 import com.bigduu.acp.entity.subject.SingleChoiceSubject;
 import com.bigduu.acp.repository.SingleChoiceSubjectRepository;
 import com.bigduu.acp.utils.DocUtils;
+import com.bigduu.acp.utils.SubjectUtils;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -29,9 +30,9 @@ class AcpApplicationTests {
         String path = "/Users/bigduu/Documents/git/acp/src/main/resources/ACP弹性云计算600道题带答案.docx";
         File file = new File(path);
         List<XWPFParagraph> paragraphs = DocUtils.getParagraphs(file);
-        for (XWPFParagraph paragraph : paragraphs) {
-            List<XWPFRun> runs = paragraph.getRuns();
-        }
+        SubjectUtils subjectUtils = new SubjectUtils();
+        subjectUtils.setParagraphList(paragraphs);
+        subjectUtils.doSave();
     }
     
     @Test
