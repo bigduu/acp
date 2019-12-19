@@ -1,8 +1,8 @@
 package com.bigduu.acp;
 
-import com.bigduu.acp.entity.subject.AnswerType;
-import com.bigduu.acp.entity.subject.Option;
-import com.bigduu.acp.entity.subject.SingleChoiceSubject;
+import com.bigduu.acp.entity.subject.*;
+import com.bigduu.acp.repository.JudgeSubjectRepository;
+import com.bigduu.acp.repository.MultipleChoiceSubjectRepository;
 import com.bigduu.acp.repository.SingleChoiceSubjectRepository;
 import com.bigduu.acp.utils.DocUtils;
 import com.bigduu.acp.utils.SubjectUtils;
@@ -25,14 +25,35 @@ class AcpApplicationTests {
     @Autowired
     private SingleChoiceSubjectRepository singleChoiceSubjectRepository;
     
+    @Autowired
+    private MultipleChoiceSubjectRepository multipleChoiceSubjectRepository;
+    
+    @Autowired
+    private JudgeSubjectRepository judgeSubjectRepository;
+    
     @Test
     void contextLoads() throws IOException, OpenXML4JException {
-        String path = "/Users/bigduu/Documents/git/acp/src/main/resources/ACP弹性云计算600道题带答案.docx";
+        String path = "C:\\Users\\mugeng.du\\IdeaProjects\\acp\\src\\main\\resources\\ACP弹性云计算600道题带答案.docx";
         File file = new File(path);
         List<XWPFParagraph> paragraphs = DocUtils.getParagraphs(file);
         SubjectUtils subjectUtils = new SubjectUtils();
         subjectUtils.setParagraphList(paragraphs);
-        subjectUtils.doSave();
+        List<Subject> subjectList = subjectUtils.getSubjectList();
+        for (Subject subject : subjectList) {
+            if (subject instanceof SingleChoiceSubject){
+                SingleChoiceSubject subject1 = (SingleChoiceSubject) subject;
+                singleChoiceSubjectRepository.save(subject1);
+            }
+            if (subject instanceof MultipleChoiceSubject){
+                MultipleChoiceSubject subject1 = (MultipleChoiceSubject) subject;
+                multipleChoiceSubjectRepository.save(subject1);
+            }
+            if (subject instanceof JudgeSubject){
+                JudgeSubject subject1 = (JudgeSubject) subject;
+                judgeSubjectRepository.save(subject1);
+            }
+        }
+        
     }
     
     @Test
