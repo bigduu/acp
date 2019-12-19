@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STHighlightColor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.core.aggregation.DateOperators;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,15 +43,15 @@ class AcpApplicationTests {
         for (Subject subject : subjectList) {
             if (subject instanceof SingleChoiceSubject){
                 SingleChoiceSubject subject1 = (SingleChoiceSubject) subject;
-                singleChoiceSubjectRepository.save(subject1);
+//                singleChoiceSubjectRepository.save(subject1);
             }
             if (subject instanceof MultipleChoiceSubject){
                 MultipleChoiceSubject subject1 = (MultipleChoiceSubject) subject;
-                multipleChoiceSubjectRepository.save(subject1);
+//                multipleChoiceSubjectRepository.save(subject1);
             }
             if (subject instanceof JudgeSubject){
                 JudgeSubject subject1 = (JudgeSubject) subject;
-                judgeSubjectRepository.save(subject1);
+//                judgeSubjectRepository.save(subject1);
             }
         }
         
@@ -58,15 +59,14 @@ class AcpApplicationTests {
     
     @Test
     void test(){
-        SingleChoiceSubject singleChoiceSubject = new SingleChoiceSubject();
-        singleChoiceSubject.setQuestion("1111");
-        singleChoiceSubject.setMark(1);
-        Option option = new Option();
-        option.setIndex(AnswerType.A);
-        option.setDescription("test");
-        List<Option> options = Arrays.asList(option);
-        singleChoiceSubject.setOptions(options);
-        singleChoiceSubjectRepository.save(singleChoiceSubject);
+    
+    }
+    
+    private String getStringTime(double gamingTime) {
+        double tmp = gamingTime / (60 * 60);
+        int hour = (int) tmp;
+        int min = (int) (gamingTime / 60 % 60);
+        return String.format("%02d:%02d", hour, min);
     }
     
 }

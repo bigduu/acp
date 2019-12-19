@@ -6,6 +6,7 @@ import com.sun.xml.internal.messaging.saaj.packaging.mime.util.QEncoderStream;
 import lombok.Data;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.STHighlightColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,13 +102,18 @@ public class SubjectUtils {
     
     private List<Option> getAnswers(SubjectParagraph subjectParagraph){
         List<XWPFRun> runs = subjectParagraph.getOptions().getRuns();
-        ArrayList<Option> answers = new ArrayList<>();
+        
         List<XWPFRun> clearRun = DocUtils.getClearRun(runs);
+        
+        ArrayList<Option> answers = new ArrayList<>();
+        
         for (XWPFRun run : clearRun) {
-            if (run.getTextHightlightColor() != null){
+            STHighlightColor.Enum textHightlightColor = run.getTextHightlightColor();
+            if (!textHightlightColor.toString().equals("none")){
                 Option option = new Option();
                 String string = run.toString();
                 String trim = string.trim();
+                
                 setOptionIndex(option, trim);
                 if (option.getIndex() != null){
                     answers.add(option);
@@ -115,6 +121,10 @@ public class SubjectUtils {
             }
         }
         return answers;
+    }
+    
+    private String removeSpace(String text){
+        return null;
     }
     
     private void setOptionIndex(Option option, String trim) {

@@ -22,7 +22,7 @@ public class DocUtils {
         ArrayList<XWPFRun> xwpfRuns = new ArrayList<>();
         for (XWPFRun run : runs) {
             String s = run.toString();
-            if (!s.isEmpty() && !s.equals("保存")){
+            if (!s.isEmpty() && !s.equals("保存") && !s.equals(" ")){
                 xwpfRuns.add(run);
             }
         }
