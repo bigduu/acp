@@ -16,6 +16,7 @@ public interface TestService {
     Test save(Test test);
     void delete(Test test);
     List<Test> getAllByUser(User user) throws Exception;
+    Test update(Test test);
     
     Test getAllSubjectTest();
     Test getOneDefaultTest();

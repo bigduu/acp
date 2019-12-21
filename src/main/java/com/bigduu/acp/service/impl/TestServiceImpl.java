@@ -45,6 +45,11 @@ public class TestServiceImpl implements TestService {
     }
     
     @Override
+    public Test update(Test test) {
+        return testRepository.save(test);
+    }
+    
+    @Override
     public List<Test> getAllByUser(User user) throws Exception {
         String id = user.getId();
         if (id == null){
@@ -52,6 +57,7 @@ public class TestServiceImpl implements TestService {
         }
         return testRepository.findAllByUserId(id);
     }
+    
     
     @Override
     public Test getAllSubjectTest() {
