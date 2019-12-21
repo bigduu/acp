@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface SingleChoiceSubjectRepository extends MongoRepository<SingleChoiceSubject,String> {
+public interface SingleChoiceSubjectRepository extends MongoRepository<SingleChoiceSubject,String>{
     Optional<SingleChoiceSubject> findByQuestionLike(String question);
 }

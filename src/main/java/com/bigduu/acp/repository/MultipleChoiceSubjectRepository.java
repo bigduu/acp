@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface MultipleChoiceSubjectRepository extends MongoRepository<MultipleChoiceSubject,String> {
+public interface MultipleChoiceSubjectRepository extends MongoRepository<MultipleChoiceSubject,
+        String>{
     Optional<MultipleChoiceSubject> findByQuestionLike(String question);
 }

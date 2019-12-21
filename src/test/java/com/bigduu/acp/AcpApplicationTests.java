@@ -4,6 +4,7 @@ import com.bigduu.acp.entity.subject.*;
 import com.bigduu.acp.repository.JudgeSubjectRepository;
 import com.bigduu.acp.repository.MultipleChoiceSubjectRepository;
 import com.bigduu.acp.repository.SingleChoiceSubjectRepository;
+import com.bigduu.acp.service.SubjectService;
 import com.bigduu.acp.utils.DocUtils;
 import com.bigduu.acp.utils.SubjectUtils;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
@@ -32,6 +33,9 @@ class AcpApplicationTests {
     
     @Autowired
     private JudgeSubjectRepository judgeSubjectRepository;
+    
+    @Autowired
+    private SubjectService subjectService;
     
     @Test
     void contextLoads() throws IOException, OpenXML4JException {
