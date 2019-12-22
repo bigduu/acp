@@ -13,4 +13,6 @@ public class SingleChoiceSubject  extends Subject {
     private String id;
     
     
+    private transient String type = "single";
+    
 }

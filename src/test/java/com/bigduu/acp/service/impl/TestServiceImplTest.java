@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author bigduu
  * @title: TestServiceImplTest
@@ -28,7 +26,7 @@ class TestServiceImplTest {
     
     @Test
     void getOneDefaultTest() {
-        com.bigduu.acp.entity.Test oneDefaultTest = testService.getOneDefaultTest();
+        com.bigduu.acp.entity.Test oneDefaultTest = testService.getDefaultTest();
         System.out.println(oneDefaultTest);
     }
     

@@ -19,7 +19,7 @@ public interface TestService {
     Test update(Test test);
     
     Test getAllSubjectTest();
-    Test getOneDefaultTest();
+    Test getDefaultTest();
     Test getSingleChoiceOnlyTest();
     Test getMultipleChoiceOnlyTest();
     Test getJudgeChoiceOnlyTest();

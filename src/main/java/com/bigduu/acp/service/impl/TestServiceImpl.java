@@ -81,7 +81,7 @@ public class TestServiceImpl implements TestService {
     }
     
     @Override
-    public Test getOneDefaultTest() {
+    public Test getDefaultTest() {
         return generateTest(singleChoiceSubjectNumber,multipleChoiceSubjectNumber,judgeSubjectNumber);
     }
     

@@ -30,7 +30,6 @@ public class Test {
     
     private Long time;
     
-    @NotNull
     private Integer mark;
     
     private List<ErrorSubject> errorSubject;

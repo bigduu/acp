@@ -34,15 +34,15 @@ public class Subject {
     /**
      * 用户答案
      */
-    private List<String> solution;
+    private List<Option> solution;
     
     /**
      * @return 判断该题是否正确
      */
     public Boolean isRight(){
         List<Option> answer = this.getAnswer();
-        List<String> solution = this.getSolution();
-        return this.answer.equals(solution);
+        List<Option> solution = this.getSolution();
+        return answer.equals(solution);
     }
     
     
