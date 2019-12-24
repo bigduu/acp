@@ -4,6 +4,8 @@ import com.bigduu.acp.common.entity.BaseEntity;
 import com.bigduu.acp.common.repository.BaseRepository;
 import com.bigduu.acp.common.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
@@ -83,5 +85,10 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
     @Override
     public void delete(String id) {
         repository.deleteById(id);
+    }
+    
+    @Override
+    public Page<T> findByPageable(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 }

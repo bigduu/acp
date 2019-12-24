@@ -1,5 +1,6 @@
 package com.bigduu.acp.controller;
 
+import com.bigduu.acp.common.controller.BaseController;
 import com.bigduu.acp.entity.Test;
 import com.bigduu.acp.service.TestService;
 import org.springframework.web.bind.annotation.*;
@@ -12,26 +13,18 @@ import org.springframework.web.bind.annotation.*;
  * @date 2019/12/2121:58
  */
 @RestController
-@RequestMapping("/test")
-public class TestController {
+@RequestMapping("/test/subject")
+public class TestController extends BaseController<Test> {
     
     private final TestService testService;
     
     private static Test allTest = null;
     
     public TestController(TestService testService) {
+        super(testService);
         this.testService = testService;
     }
     
-    @PostMapping("/subject")
-    public Test save(Test test){
-        return testService.addOne(test);
-    }
-    
-    @PatchMapping("/subject")
-    public Test update(Test test){
-        return testService.update(test);
-    }
     
     @GetMapping("/subject/all")
     public Test getAllTest(){
