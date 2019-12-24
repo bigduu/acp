@@ -1,4 +1,4 @@
-package com.bigduu.acp.entity.subject;
+package com.bigduu.acp.entity.subject.subSubject;
 
 import com.bigduu.acp.entity.subject.Subject;
 import lombok.Data;

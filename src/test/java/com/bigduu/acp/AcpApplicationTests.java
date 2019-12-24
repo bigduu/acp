@@ -1,6 +1,7 @@
 package com.bigduu.acp;
 
 import com.bigduu.acp.entity.subject.*;
+import com.bigduu.acp.entity.subject.subSubject.*;
 import com.bigduu.acp.repository.JudgeSubjectRepository;
 import com.bigduu.acp.repository.MultipleChoiceSubjectRepository;
 import com.bigduu.acp.repository.SingleChoiceSubjectRepository;
@@ -9,12 +10,9 @@ import com.bigduu.acp.utils.DocUtils;
 import com.bigduu.acp.utils.SubjectUtils;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.junit.jupiter.api.Test;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.STHighlightColor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.mongodb.core.aggregation.DateOperators;
 
 import java.io.File;
 import java.io.IOException;

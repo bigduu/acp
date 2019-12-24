@@ -1,22 +1,21 @@
 package com.bigduu.acp.entity;
 
-import com.bigduu.acp.entity.subject.ErrorSubject;
-import com.bigduu.acp.entity.subject.JudgeSubject;
-import com.bigduu.acp.entity.subject.MultipleChoiceSubject;
-import com.bigduu.acp.entity.subject.SingleChoiceSubject;
+import com.bigduu.acp.common.entity.BaseEntity;
+import com.bigduu.acp.entity.subject.subSubject.ErrorSubject;
+import com.bigduu.acp.entity.subject.subSubject.JudgeSubject;
+import com.bigduu.acp.entity.subject.subSubject.MultipleChoiceSubject;
+import com.bigduu.acp.entity.subject.subSubject.SingleChoiceSubject;
 import lombok.Builder;
 import lombok.Data;
-import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Document
 @Data
 @Builder
-public class Test {
+public class Test extends BaseEntity {
     @Id
     private String id;
     

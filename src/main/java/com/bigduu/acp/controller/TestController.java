@@ -17,13 +17,15 @@ public class TestController {
     
     private final TestService testService;
     
+    private static Test allTest = null;
+    
     public TestController(TestService testService) {
         this.testService = testService;
     }
     
     @PostMapping("/subject")
     public Test save(Test test){
-        return testService.save(test);
+        return testService.addOne(test);
     }
     
     @PatchMapping("/subject")
@@ -33,12 +35,14 @@ public class TestController {
     
     @GetMapping("/subject/all")
     public Test getAllTest(){
-        return testService.getAllSubjectTest();
+        if (allTest == null){
+            allTest = testService.getAllSubjectTest();
+        }
+        return allTest;
     }
     @GetMapping("/subject/default")
     public Test getDefaultTest(){
-        Test defaultTest = testService.getDefaultTest();
-        return defaultTest;
+        return testService.getDefaultTest();
     }
     @GetMapping("/subject/single")
     public Test getSingleChoiceOnlyTest(){

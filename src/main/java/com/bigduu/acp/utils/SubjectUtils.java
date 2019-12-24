@@ -1,8 +1,8 @@
 package com.bigduu.acp.utils;
 
 import com.bigduu.acp.entity.subject.*;
+import com.bigduu.acp.entity.subject.subSubject.*;
 import com.bigduu.acp.modle.SubjectParagraph;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.util.QEncoderStream;
 import lombok.Data;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;

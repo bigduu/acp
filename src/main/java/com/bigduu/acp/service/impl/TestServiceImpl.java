@@ -1,8 +1,13 @@
 package com.bigduu.acp.service.impl;
 
+import com.bigduu.acp.common.service.impl.BaseServiceImpl;
 import com.bigduu.acp.entity.Test;
 import com.bigduu.acp.entity.User;
 import com.bigduu.acp.entity.subject.*;
+import com.bigduu.acp.entity.subject.subSubject.JudgeSubject;
+import com.bigduu.acp.entity.subject.subSubject.MultipleChoiceSubject;
+import com.bigduu.acp.entity.subject.subSubject.SingleChoiceSubject;
+import com.bigduu.acp.entity.subject.subSubject.SubjectType;
 import com.bigduu.acp.repository.TestRepository;
 import com.bigduu.acp.service.SubjectService;
 import com.bigduu.acp.service.TestService;
@@ -20,7 +25,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class TestServiceImpl implements TestService {
+public class TestServiceImpl extends BaseServiceImpl<Test> implements TestService {
     
     private final SubjectService subjectService;
     private final TestRepository testRepository;
@@ -30,14 +35,12 @@ public class TestServiceImpl implements TestService {
     private final static Integer judgeSubjectNumber = 20;
     
     public TestServiceImpl(SubjectService subjectService, TestRepository testRepository) {
+        super();
+        super.repository = testRepository;
         this.subjectService = subjectService;
         this.testRepository = testRepository;
     }
     
-    @Override
-    public Test save(Test test) {
-        return testRepository.save(test);
-    }
     
     @Override
     public void delete(Test test) {

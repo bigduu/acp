@@ -1,6 +1,6 @@
 package com.bigduu.acp.modle;
 
-import com.bigduu.acp.entity.subject.SubjectType;
+import com.bigduu.acp.entity.subject.subSubject.SubjectType;
 import lombok.Data;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 

@@ -1,8 +1,11 @@
 package com.bigduu.acp.entity.subject;
 
 
+import com.bigduu.acp.common.entity.BaseEntity;
+import com.bigduu.acp.entity.subject.subSubject.Option;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -35,6 +38,8 @@ public class Subject {
      * 用户答案
      */
     private List<Option> solution;
+    
+    private Boolean did = false;
     
     /**
      * @return 判断该题是否正确

@@ -1,16 +1,18 @@
-package com.bigduu.acp.entity.subject;
+package com.bigduu.acp.entity.subject.subSubject;
 
 import com.bigduu.acp.entity.subject.Subject;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
 @Data
 @Document
-public class MultipleChoiceSubject extends Subject {
+public class SingleChoiceSubject  extends Subject {
     @Id
     private String id;
     
-    private transient String type = "multiple";
+    
+    private transient String type = "single";
     
 }

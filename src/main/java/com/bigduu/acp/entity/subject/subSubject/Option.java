@@ -1,4 +1,4 @@
-package com.bigduu.acp.entity.subject;
+package com.bigduu.acp.entity.subject.subSubject;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -6,8 +6,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
 
-@Document
 @Data
+@Document
 public class Option {
     @Id
     private String id;

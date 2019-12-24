@@ -6,4 +6,4 @@ COPY ${JAR_FILE} /opt/app.jar
 
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/opt/app.jar"]
 
-EXPOSE 80
+EXPOSE 8080

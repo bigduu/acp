@@ -1,14 +1,10 @@
 package com.bigduu.acp.repository;
 
-import com.bigduu.acp.entity.subject.MultipleChoiceSubject;
-import com.bigduu.acp.entity.subject.SingleChoiceSubject;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+import com.bigduu.acp.common.repository.BaseRepository;
+import com.bigduu.acp.entity.subject.subSubject.MultipleChoiceSubject;
 
 import java.util.Optional;
 
-@Repository
-public interface MultipleChoiceSubjectRepository extends MongoRepository<MultipleChoiceSubject,
-        String>{
+public interface MultipleChoiceSubjectRepository extends BaseRepository<MultipleChoiceSubject> {
     Optional<MultipleChoiceSubject> findByQuestionLike(String question);
 }

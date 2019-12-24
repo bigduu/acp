@@ -1,5 +1,6 @@
 package com.bigduu.acp.service;
 
+import com.bigduu.acp.common.service.BaseService;
 import com.bigduu.acp.entity.Test;
 import com.bigduu.acp.entity.User;
 
@@ -12,11 +13,9 @@ import java.util.List;
  * @description: TODO
  * @date 2019/12/2119:40
  */
-public interface TestService {
-    Test save(Test test);
-    void delete(Test test);
+public interface TestService extends BaseService<Test> {
+    
     List<Test> getAllByUser(User user) throws Exception;
-    Test update(Test test);
     
     Test getAllSubjectTest();
     Test getDefaultTest();

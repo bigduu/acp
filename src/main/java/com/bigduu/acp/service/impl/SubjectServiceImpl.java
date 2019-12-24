@@ -1,11 +1,12 @@
 package com.bigduu.acp.service.impl;
 
 import com.bigduu.acp.entity.subject.Subject;
-import com.bigduu.acp.entity.subject.SubjectType;
+import com.bigduu.acp.entity.subject.subSubject.SubjectType;
 import com.bigduu.acp.repository.JudgeSubjectRepository;
 import com.bigduu.acp.repository.MultipleChoiceSubjectRepository;
 import com.bigduu.acp.repository.SingleChoiceSubjectRepository;
 import com.bigduu.acp.service.SubjectService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.util.*;
  * @date 2019/12/2119:39
  */
 @Service
+@Slf4j
 public class SubjectServiceImpl implements SubjectService {
     private final SingleChoiceSubjectRepository singleChoiceSubjectRepository;
     private final MultipleChoiceSubjectRepository multipleChoiceSubjectRepository;
@@ -74,6 +76,7 @@ public class SubjectServiceImpl implements SubjectService {
         MongoRepository<? extends Subject, String> subjectTypeService = getSubjectTypeService(subjectType);
         long count = subjectTypeService.count();
         if (number > count){
+            log.error("生成随即题目，但是题目没有足够数量");
             throw new Exception("该题型没有足够的数量");
         }else{
             List<? extends Subject> all = subjectTypeService.findAll();
