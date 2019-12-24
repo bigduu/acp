@@ -35,8 +35,7 @@ public class TestServiceImpl extends BaseServiceImpl<Test> implements TestServic
     private final static Integer judgeSubjectNumber = 20;
     
     public TestServiceImpl(SubjectService subjectService, TestRepository testRepository) {
-        super();
-        super.repository = testRepository;
+        super(testRepository);
         this.subjectService = subjectService;
         this.testRepository = testRepository;
     }

@@ -18,6 +18,12 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
     
     protected BaseRepository<T> repository;
     
+    private BaseServiceImpl(){}
+    
+    public BaseServiceImpl(BaseRepository<T> baseRepository){
+        this.repository = baseRepository;
+    }
+    
     @Override
     public List<T> getAll() {
         return repository.findAll();

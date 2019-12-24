@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2019/12/2121:58
  */
 @RestController
-@RequestMapping("/test/subject")
+@RequestMapping("/test")
 public class TestController extends BaseController<Test> {
     
     private final TestService testService;
@@ -25,28 +25,31 @@ public class TestController extends BaseController<Test> {
         this.testService = testService;
     }
     
-    
-    @GetMapping("/subject/all")
+    @GetMapping("/all")
     public Test getAllTest(){
         if (allTest == null){
             allTest = testService.getAllSubjectTest();
         }
         return allTest;
     }
-    @GetMapping("/subject/default")
+    @GetMapping("/default")
     public Test getDefaultTest(){
         return testService.getDefaultTest();
     }
-    @GetMapping("/subject/single")
+    
+    @GetMapping("/single")
     public Test getSingleChoiceOnlyTest(){
         return testService.getSingleChoiceOnlyTest();
     }
-    @GetMapping("/subject/multiple")
+    
+    @GetMapping("/multiple")
     public Test getMultipleChoiceOnlyTest(){
         return testService.getMultipleChoiceOnlyTest();
     }
-    @GetMapping("/subject/judge")
+    
+    @GetMapping("/judge")
     public Test getJudgeChoiceOnlyTest(){
         return testService.getJudgeChoiceOnlyTest();
     }
+    
 }
