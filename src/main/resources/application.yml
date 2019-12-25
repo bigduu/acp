@@ -1,4 +1,3 @@
-:
 spring:
   data:
     mongodb:
@@ -8,3 +7,5 @@ spring:
       port: 27017
       database: acp
       authentication-database: admin
+server:
+  port: 8888

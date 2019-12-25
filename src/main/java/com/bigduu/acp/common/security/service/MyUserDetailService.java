@@ -1,12 +1,18 @@
-package com.bigduu.acp.config.security.service;
+package com.bigduu.acp.common.security.service;
 
+import com.bigduu.acp.common.security.userdetail.UserDetail;
+import com.bigduu.acp.entity.User;
 import com.bigduu.acp.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * TODO 还需要一些其他的错误类型
+ */
+@Slf4j
 @Service
 public class MyUserDetailService implements UserDetailsService {
     
@@ -18,6 +24,11 @@ public class MyUserDetailService implements UserDetailsService {
     
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
+        User user = userService.findByName(s);
+        if (user == null){
+            log.error("不存在该用户");
+            throw new UsernameNotFoundException("不存在该用户");
+        }
+        return new UserDetail(user);
     }
 }

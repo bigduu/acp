@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
  * @description: TODO
  * @date 2019/12/2121:58
  */
-@RestController
 @RequestMapping("/test")
+@RestController
 public class TestController extends BaseController<Test> {
     
     private final TestService testService;
@@ -25,7 +25,7 @@ public class TestController extends BaseController<Test> {
         this.testService = testService;
     }
     
-    @GetMapping("/all")
+    @GetMapping("/allSubject")
     public Test getAllTest(){
         if (allTest == null){
             allTest = testService.getAllSubjectTest();
