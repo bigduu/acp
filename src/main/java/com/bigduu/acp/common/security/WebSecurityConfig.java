@@ -4,10 +4,12 @@ import com.bigduu.acp.common.security.afterloginhandler.MyAuthenticationFailureH
 import com.bigduu.acp.common.security.afterloginhandler.MyAuthenticationSuccessHandler;
 import com.bigduu.acp.common.security.entrypoint.MyLoginUrlAuthenticationEntryPoint;
 import com.bigduu.acp.common.security.service.MyUserDetailService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,7 +17,18 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
+import java.util.Collections;
+
+/**
+ * @author mugeng.du
+ */
+@Slf4j
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -60,7 +73,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests().antMatchers("/login","/logout","/user/logon").permitAll().anyRequest().authenticated()
+                .authorizeRequests().antMatchers("/login","/logout","/user/logon").permitAll()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin().loginProcessingUrl("/login").successHandler(myAuthenticationSuccessHandler).failureHandler(myAuthenticationFailureHandler)
                 .and()
@@ -68,12 +83,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().authenticationEntryPoint(myAuthenticationEntryPoint())
                 .and()
-                .cors().disable()
-                .csrf().disable();
+                .cors(Customizer.withDefaults())
+                .csrf()
+                .disable();
     }
     
+    @Bean
+    protected CorsConfigurationSource corsConfigurationSource(){
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedHeaders(Collections.singletonList("*"));
+        corsConfiguration.setAllowedMethods(Collections.singletonList("*"));
+        corsConfiguration.setAllowedOrigins(Collections.singletonList("*"));
+        corsConfiguration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**",corsConfiguration);
+        return urlBasedCorsConfigurationSource;
+    }
+    
+    @Bean
+    protected CorsFilter corsFilter(){
+        return new CorsFilter(corsConfigurationSource());
+    }
+    
+    
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
+    
 }
