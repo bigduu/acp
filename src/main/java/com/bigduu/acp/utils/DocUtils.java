@@ -3,13 +3,14 @@ package com.bigduu.acp.utils;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.apache.poi.xwpf.usermodel.XWPFStyles;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTR;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author mugeng.du
+ */
 public class DocUtils {
     public static List<XWPFParagraph> getParagraphs(File file) throws IOException{
         FileInputStream fileInputStream = new FileInputStream(file);
@@ -22,7 +23,7 @@ public class DocUtils {
         ArrayList<XWPFRun> xwpfRuns = new ArrayList<>();
         for (XWPFRun run : runs) {
             String s = run.toString();
-            if (!s.isEmpty() && !s.equals("保存") && !s.equals(" ")){
+            if (!s.isEmpty() && !"保存".equals(s) && !" ".equals(s)){
                 xwpfRuns.add(run);
             }
         }

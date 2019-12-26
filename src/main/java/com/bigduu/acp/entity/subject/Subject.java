@@ -1,11 +1,9 @@
 package com.bigduu.acp.entity.subject;
 
 
-import com.bigduu.acp.common.entity.BaseEntity;
-import com.bigduu.acp.entity.subject.subSubject.Option;
+import com.bigduu.acp.entity.subject.subsubject.Option;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.bigduu.acp.entity.subject.subSubject;
+package com.bigduu.acp.entity.subject.subsubject;
 
 public enum AnswerType {
     A,

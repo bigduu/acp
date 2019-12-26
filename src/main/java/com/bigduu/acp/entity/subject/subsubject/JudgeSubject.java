@@ -1,15 +1,20 @@
-package com.bigduu.acp.entity.subject.subSubject;
+package com.bigduu.acp.entity.subject.subsubject;
 
 import com.bigduu.acp.entity.subject.Subject;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * @author mugeng.du
+ */
 @Data
 @Document
+@EqualsAndHashCode(callSuper = true)
 public class JudgeSubject extends Subject {
     @Id
     private String id;
     
-    private transient String type = "judge";
+    private String type = "judge";
 }

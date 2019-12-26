@@ -1,4 +1,4 @@
-package com.bigduu.acp.entity.subject.subSubject;
+package com.bigduu.acp.entity.subject.subsubject;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -6,6 +6,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
 
+/**
+ * @author mugeng.du
+ */
 @Data
 @Document
 public class Option {
@@ -18,8 +21,12 @@ public class Option {
     
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Option option = (Option) o;
         return index == option.index;
     }

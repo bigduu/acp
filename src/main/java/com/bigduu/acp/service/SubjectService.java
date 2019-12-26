@@ -1,7 +1,7 @@
 package com.bigduu.acp.service;
 
 import com.bigduu.acp.entity.subject.Subject;
-import com.bigduu.acp.entity.subject.subSubject.SubjectType;
+import com.bigduu.acp.entity.subject.subsubject.SubjectType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
