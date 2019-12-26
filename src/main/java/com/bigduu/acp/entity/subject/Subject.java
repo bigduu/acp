@@ -2,6 +2,7 @@ package com.bigduu.acp.entity.subject;
 
 
 import com.bigduu.acp.entity.subject.subsubject.Option;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,7 @@ public class Subject {
      */
     private List<Option> solution;
     
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private transient Boolean did = false;
     
     /**
