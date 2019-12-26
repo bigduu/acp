@@ -39,7 +39,7 @@ public class Subject {
      */
     private List<Option> solution;
     
-    private Boolean did = false;
+    private transient Boolean did = false;
     
     /**
      * @return 判断该题是否正确

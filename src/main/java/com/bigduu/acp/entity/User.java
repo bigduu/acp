@@ -1,7 +1,10 @@
 package com.bigduu.acp.entity;
 
 import com.bigduu.acp.common.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
@@ -10,6 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
+/**
+ * @author mugeng.du
+ */
 @Data
 @Document
 @EqualsAndHashCode(callSuper = true)
@@ -19,7 +25,7 @@ public class User extends BaseEntity {
     
     private String username;
     
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     
     private Integer lastMark;

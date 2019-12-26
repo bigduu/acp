@@ -1,11 +1,12 @@
 spring:
   data:
     mongodb:
-      username: bigduu
-      password: paradise
-      host: 36.42.73.246
+#      username: bigduu
+#      password: paradise
+#      host: 36.42.73.246
       port: 27017
       database: acp
-      authentication-database: admin
+#      authentication-database: admin
+      host: 127.0.0.1
 server:
   port: 8888

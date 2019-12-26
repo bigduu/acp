@@ -22,6 +22,9 @@ import java.util.*;
 @Service
 @Slf4j
 public class SubjectServiceImpl implements SubjectService {
+    
+    private static Map<String, List<? extends Subject>> SUBJECT_CACHE = new HashMap<>();
+    private static Map<String, Long> COUNT_CACHE = new HashMap<>();
     private final SingleChoiceSubjectRepository singleChoiceSubjectRepository;
     private final MultipleChoiceSubjectRepository multipleChoiceSubjectRepository;
     private final JudgeSubjectRepository judgeSubjectRepository;
@@ -35,16 +38,20 @@ public class SubjectServiceImpl implements SubjectService {
     }
     
     private MongoRepository<? extends Subject, String> getSubjectTypeService(SubjectType subjectType) throws Exception {
-        switch (subjectType){
-            case SINGLE_CHOICE: return this.singleChoiceSubjectRepository;
-            case MULTIPLE_CHOICE: return this.multipleChoiceSubjectRepository;
-            case JUDGE: return judgeSubjectRepository;
+        switch (subjectType) {
+            case SINGLE_CHOICE:
+                return this.singleChoiceSubjectRepository;
+            case MULTIPLE_CHOICE:
+                return this.multipleChoiceSubjectRepository;
+            case JUDGE:
+                return judgeSubjectRepository;
+            default:
+                throw new Exception("没有该题型");
         }
-        throw new Exception("没有该题型");
     }
     
-    private List<? extends Subject> filterSubject(List<? extends Subject> subjects,Integer number){
-        Set<Integer> randomNumberSet = getRandomNumberSet(number);
+    private List<? extends Subject> filterSubject(List<? extends Subject> subjects, Integer number) {
+        List<Integer> randomNumberSet = getRandomNumberSet(number);
         ArrayList<Subject> outList = new ArrayList<>();
         for (Integer integer : randomNumberSet) {
             outList.add(subjects.get(integer));
@@ -52,18 +59,20 @@ public class SubjectServiceImpl implements SubjectService {
         return outList;
     }
     
-    private Set<Integer> getRandomNumberSet(Integer targetSize){
-        HashSet<Integer> integers = new HashSet<>();
-        while (integers.size() != targetSize){
+    private List<Integer> getRandomNumberSet(Integer targetSize) {
+        ArrayList<Integer> integers = new ArrayList<>();
+        while (integers.size() < targetSize) {
             Integer randomNumber = getRandomNumber(targetSize);
+            if (integers.contains(randomNumber)){
+                continue;
+            }
             integers.add(randomNumber);
         }
         return integers;
     }
     
-    private Integer getRandomNumber(int end){
-        return random.nextInt(end +1);
-    
+    private Integer getRandomNumber(int end) {
+        return random.nextInt(end + 1);
     }
     
     @Override
@@ -74,13 +83,35 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public List<? extends Subject> getRandomTypeOfSubject(SubjectType subjectType, Integer number) throws Exception {
         MongoRepository<? extends Subject, String> subjectTypeService = getSubjectTypeService(subjectType);
-        long count = subjectTypeService.count();
-        if (number > count){
+        Long count = getCountCache(subjectType, subjectTypeService);
+        if (number > count) {
             log.error("生成随即题目，但是题目没有足够数量");
             throw new Exception("该题型没有足够的数量");
-        }else{
-            List<? extends Subject> all = subjectTypeService.findAll();
+        } else {
+            List<? extends Subject> all = getSubjectsCache(subjectType, subjectTypeService);
             return filterSubject(all, number);
         }
+    }
+    
+    private List<? extends Subject> getSubjectsCache(SubjectType subjectType, MongoRepository<? extends Subject, String> subjectTypeService) {
+        if (SUBJECT_CACHE.get(subjectType.toString()) == null) {
+            synchronized (this) {
+                if (SUBJECT_CACHE.get(subjectType.toString()) == null) {
+                    SUBJECT_CACHE.put(subjectType.toString(),subjectTypeService.findAll());
+                }
+            }
+        }
+        return SUBJECT_CACHE.get(subjectType.toString());
+    }
+    
+    private Long getCountCache(SubjectType subjectType, MongoRepository<? extends Subject, String> subjectTypeService) {
+        if (COUNT_CACHE.get(subjectType.toString()) == null) {
+            synchronized (this) {
+                if (COUNT_CACHE.get(subjectType.toString()) == null) {
+                    COUNT_CACHE.put(subjectType.toString(),subjectTypeService.count());
+                }
+            }
+        }
+        return COUNT_CACHE.get(subjectType.toString());
     }
 }

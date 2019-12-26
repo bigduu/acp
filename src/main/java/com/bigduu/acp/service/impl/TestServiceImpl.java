@@ -30,9 +30,9 @@ public class TestServiceImpl extends BaseServiceImpl<Test> implements TestServic
     private final SubjectService subjectService;
     private final TestRepository testRepository;
     
-    private final static Integer singleChoiceSubjectNumber = 50;
-    private final static Integer multipleChoiceSubjectNumber = 30;
-    private final static Integer judgeSubjectNumber = 20;
+    private final static Integer SINGLE_CHOICE_SUBJECT_NUMBER = 50;
+    private final static Integer MULTIPLE_CHOICE_SUBJECT_NUMBER = 30;
+    private final static Integer JUDGE_SUBJECT_NUMBER = 20;
     
     public TestServiceImpl(SubjectService subjectService, TestRepository testRepository) {
         super(testRepository);
@@ -84,7 +84,7 @@ public class TestServiceImpl extends BaseServiceImpl<Test> implements TestServic
     
     @Override
     public Test getDefaultTest() {
-        return generateTest(singleChoiceSubjectNumber,multipleChoiceSubjectNumber,judgeSubjectNumber);
+        return generateTest(SINGLE_CHOICE_SUBJECT_NUMBER, MULTIPLE_CHOICE_SUBJECT_NUMBER, JUDGE_SUBJECT_NUMBER);
     }
     
     
@@ -111,6 +111,7 @@ public class TestServiceImpl extends BaseServiceImpl<Test> implements TestServic
             randomSingleTypeOfSubject = subjectService.getRandomTypeOfSubject(SubjectType.SINGLE_CHOICE, single);
             randomMultipleTypeOfSubject = subjectService.getRandomTypeOfSubject(SubjectType.MULTIPLE_CHOICE,multiple);
             randomJudgeTypeOfSubject = subjectService.getRandomTypeOfSubject(SubjectType.JUDGE,judge);
+            
         } catch (Exception e) {
             log.error(e.getMessage());
         }

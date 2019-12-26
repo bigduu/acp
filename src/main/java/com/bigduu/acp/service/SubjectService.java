@@ -25,6 +25,7 @@ public interface SubjectService {
     
     /**
      * 获取随机题目 指定数目
+     *
      * @param subjectType 获取题目的类型
      * @param number 获取题目的数量
      * @return 返回改数量的该类型的题目

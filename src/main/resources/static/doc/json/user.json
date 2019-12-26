@@ -1,0 +1,1 @@
+{"_id":{"$oid":"5e03058340582424570c8bfe"},"username":"admin","password":"$2a$10$Mh.RqKKX.q0z.PjFokh7MeHzwa92pSdls.EaX5a6/zIz6UwKCaf3m","version":{"$numberInt":"0"},"active":true,"_class":"com.bigduu.acp.entity.User"}
