@@ -8,5 +8,6 @@ spring:
       database: acp
 #      authentication-database: admin
       host: 127.0.0.1
+      auto-index-creation: true
 server:
   port: 8888

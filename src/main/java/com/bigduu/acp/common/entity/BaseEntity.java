@@ -5,6 +5,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 
 
+/**
+ * @author mugeng.du
+ */
 @Data
 public class BaseEntity {
     @Version

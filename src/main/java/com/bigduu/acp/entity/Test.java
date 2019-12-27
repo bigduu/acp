@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -26,10 +27,13 @@ public class Test extends BaseEntity {
     
     private String userId;
     
+    @DBRef
     private List<SingleChoiceSubject> singleChoiceSubjects;
     
+    @DBRef
     private List<MultipleChoiceSubject> multipleChoiceSubjects;
     
+    @DBRef
     private List<JudgeSubject> judgeSubjects;
     
     private Long time;

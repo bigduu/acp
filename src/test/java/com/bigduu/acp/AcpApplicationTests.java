@@ -8,6 +8,8 @@ import com.bigduu.acp.repository.subject.SingleChoiceSubjectRepository;
 import com.bigduu.acp.service.SubjectService;
 import com.bigduu.acp.utils.DocUtils;
 import com.bigduu.acp.utils.SubjectUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.junit.jupiter.api.Test;
@@ -34,6 +36,9 @@ class AcpApplicationTests {
     
     @Autowired
     private SubjectService subjectService;
+    
+    @Autowired
+    private ObjectMapper objectMapper;
     
     @Test
     void contextLoads() throws IOException, OpenXML4JException {
@@ -92,6 +97,16 @@ class AcpApplicationTests {
         int hour = (int) tmp;
         int min = (int) (gamingTime / 60 % 60);
         return String.format("%02d:%02d", hour, min);
+    }
+    
+    @Test
+    void jackSonTest() throws JsonProcessingException {
+        String string = "{\"@type\":\"SingleChoiceSubject\",\"mark\":1,\"question\":\"阿里云对象存储OSS是阿里云对外提供的海量、安全、低成本、高可靠的云存储服务。用OSS管理的文件可以很方便地对外提供分享," +
+                "分享前点击文件后面的“获取地址”文字链接即可得到当前文件的地址,这个分享使用的是________应用层（七层）协议。 保存\",\"options\":[{\"id\":null,\"index\":\"A\",\"description\":\"A、HTTP\"},{\"id\":null,\"index\":\"B\",\"description\":\"B、TCP\"},{\"id\":null,\"index\":\"C\",\"description\":\"C、FTP\"},{\"id\":null,\"index\":\"D\",\"description\":\"D、SMTP\"}],\"answer\":[{\"id\":null,\"index\":\"A\",\"description\":null}],\"solution\":[{\"index\":\"D\"}],\"did\":true,\"id\":\"5dfb89faea6e9b6a04bb3681\",\"type\":\"single\",\"right\":false,\"tmp\":\"D\",\"errorLog\":true}";
+    
+        ErrorSubject errorSubject = objectMapper.readValue(string, ErrorSubject.class);
+        System.out.println(errorSubject);
+    
     }
     
 }

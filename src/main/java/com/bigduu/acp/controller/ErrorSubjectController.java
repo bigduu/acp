@@ -3,10 +3,7 @@ package com.bigduu.acp.controller;
 import com.bigduu.acp.entity.subject.subsubject.ErrorSubject;
 import com.bigduu.acp.service.ErrorSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,12 +26,12 @@ public class ErrorSubjectController {
     }
     
     @PostMapping
-    public ErrorSubject save(ErrorSubject errorSubject){
+    public ErrorSubject save(@RequestBody ErrorSubject errorSubject){
         return errorSubjectService.addOne(errorSubject);
     }
     
     @PostMapping("/all")
-    public List<ErrorSubject> saveAll(List<ErrorSubject> errorSubjects) {
+    public List<ErrorSubject> saveAll(@RequestBody List<ErrorSubject> errorSubjects) {
         return errorSubjectService.addAll(errorSubjects);
     }
     

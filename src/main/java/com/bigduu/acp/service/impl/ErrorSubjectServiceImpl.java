@@ -3,6 +3,7 @@ package com.bigduu.acp.service.impl;
 import com.bigduu.acp.entity.subject.subsubject.ErrorSubject;
 import com.bigduu.acp.repository.subject.ErrorSubjectRepository;
 import com.bigduu.acp.service.ErrorSubjectService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public class ErrorSubjectServiceImpl implements ErrorSubjectService {
     
     @Override
     public ErrorSubject addOne(ErrorSubject errorSubject) {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        errorSubject.setUsername(name);
         return errorSubjectRepository.save(errorSubject);
     }
     
