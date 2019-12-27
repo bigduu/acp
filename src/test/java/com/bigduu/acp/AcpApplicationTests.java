@@ -2,9 +2,9 @@ package com.bigduu.acp;
 
 import com.bigduu.acp.entity.subject.*;
 import com.bigduu.acp.entity.subject.subsubject.*;
-import com.bigduu.acp.repository.JudgeSubjectRepository;
-import com.bigduu.acp.repository.MultipleChoiceSubjectRepository;
-import com.bigduu.acp.repository.SingleChoiceSubjectRepository;
+import com.bigduu.acp.repository.subject.JudgeSubjectRepository;
+import com.bigduu.acp.repository.subject.MultipleChoiceSubjectRepository;
+import com.bigduu.acp.repository.subject.SingleChoiceSubjectRepository;
 import com.bigduu.acp.service.SubjectService;
 import com.bigduu.acp.utils.DocUtils;
 import com.bigduu.acp.utils.SubjectUtils;

@@ -1,7 +1,7 @@
 package com.bigduu.acp.service.impl;
 
 import com.bigduu.acp.entity.subject.subsubject.ErrorSubject;
-import com.bigduu.acp.repository.ErrorSubjectRepository;
+import com.bigduu.acp.repository.subject.ErrorSubjectRepository;
 import com.bigduu.acp.service.ErrorSubjectService;
 import org.springframework.stereotype.Service;
 

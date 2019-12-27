@@ -1,4 +1,4 @@
-package com.bigduu.acp.repository;
+package com.bigduu.acp.repository.subject;
 
 import com.bigduu.acp.entity.subject.subsubject.ErrorSubject;
 import org.springframework.data.mongodb.repository.MongoRepository;

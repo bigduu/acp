@@ -2,9 +2,9 @@ package com.bigduu.acp.service.impl;
 
 import com.bigduu.acp.entity.subject.Subject;
 import com.bigduu.acp.entity.subject.subsubject.SubjectType;
-import com.bigduu.acp.repository.JudgeSubjectRepository;
-import com.bigduu.acp.repository.MultipleChoiceSubjectRepository;
-import com.bigduu.acp.repository.SingleChoiceSubjectRepository;
+import com.bigduu.acp.repository.subject.JudgeSubjectRepository;
+import com.bigduu.acp.repository.subject.MultipleChoiceSubjectRepository;
+import com.bigduu.acp.repository.subject.SingleChoiceSubjectRepository;
 import com.bigduu.acp.service.SubjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.repository.MongoRepository;
