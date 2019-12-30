@@ -1,6 +1,6 @@
 package com.bigduu.acp.service.impl;
 
-import com.bigduu.acp.common.service.impl.BaseServiceImpl;
+import com.bigduu.acp.common.CSRE.service.impl.BaseServiceImpl;
 import com.bigduu.acp.entity.User;
 import com.bigduu.acp.repository.UserRepository;
 import com.bigduu.acp.service.UserService;

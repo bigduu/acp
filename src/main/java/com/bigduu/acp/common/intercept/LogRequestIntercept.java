@@ -11,6 +11,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.sql.Time;
 
 /**
  * @author mugeng.du
@@ -37,6 +38,16 @@ public class LogRequestIntercept implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         long  start = Long.parseLong(request.getAttribute(START_TIME).toString());
+        log.info("请求路径: {}",request.getRequestURI());
+        log.info("请求方法: {}",request.getMethod());
+        log.info("返回状态: {}",response.getStatus());
+        long l = System.currentTimeMillis() - start;
+        buildOperation(request,response, l);
+        log.info("请求耗时: {} ms",l);
+        log.info("=======================================");
+    }
+    
+    private void buildOperation(HttpServletRequest request,HttpServletResponse response,Long time){
         Operation operation = new Operation();
         if (request.getUserPrincipal() != null){
             String name = request.getUserPrincipal().getName();
@@ -46,14 +57,7 @@ public class LogRequestIntercept implements HandlerInterceptor {
         operation.setPath(request.getRequestURI());
         operation.setMethod(request.getMethod());
         operation.setState(response.getStatus());
-        log.info("请求路径: {}",request.getRequestURI());
-        log.info("请求方法: {}",request.getMethod());
-        log.info("返回状态: {}",response.getStatus());
-        long l = System.currentTimeMillis() - start;
-        operation.setTime(l);
+        operation.setTime(time);
         operationService.addOne(operation);
-        log.info("请求耗时: {} ms",l);
-        log.info("=======================================");
-    
     }
 }

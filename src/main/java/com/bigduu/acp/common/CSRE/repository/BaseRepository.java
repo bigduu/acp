@@ -1,4 +1,4 @@
-package com.bigduu.acp.common.repository;
+package com.bigduu.acp.common.CSRE.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.NoRepositoryBean;

@@ -1,6 +1,6 @@
 package com.bigduu.acp.service;
 
-import com.bigduu.acp.common.service.BaseService;
+import com.bigduu.acp.common.CSRE.service.BaseService;
 import com.bigduu.acp.entity.Test;
 import com.bigduu.acp.entity.User;
 

@@ -1,7 +1,6 @@
-package com.bigduu.acp.common.entity;
+package com.bigduu.acp.common.CSRE.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 
 

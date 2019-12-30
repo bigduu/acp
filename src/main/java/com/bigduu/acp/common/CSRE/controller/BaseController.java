@@ -1,6 +1,6 @@
-package com.bigduu.acp.common.controller;
+package com.bigduu.acp.common.CSRE.controller;
 
-import com.bigduu.acp.common.service.BaseService;
+import com.bigduu.acp.common.CSRE.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

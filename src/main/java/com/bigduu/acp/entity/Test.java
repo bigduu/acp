@@ -1,6 +1,6 @@
 package com.bigduu.acp.entity;
 
-import com.bigduu.acp.common.entity.BaseEntity;
+import com.bigduu.acp.common.CSRE.entity.BaseEntity;
 import com.bigduu.acp.entity.subject.subsubject.ErrorSubject;
 import com.bigduu.acp.entity.subject.subsubject.JudgeSubject;
 import com.bigduu.acp.entity.subject.subsubject.MultipleChoiceSubject;

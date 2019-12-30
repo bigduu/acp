@@ -1,8 +1,7 @@
 package com.bigduu.acp.repository;
 
-import com.bigduu.acp.common.repository.BaseRepository;
+import com.bigduu.acp.common.CSRE.repository.BaseRepository;
 import com.bigduu.acp.entity.Test;
-import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.bigduu.acp.controller;
 
-import com.bigduu.acp.common.controller.BaseController;
+import com.bigduu.acp.common.CSRE.controller.BaseController;
 import com.bigduu.acp.entity.Test;
 import com.bigduu.acp.service.TestService;
 import org.springframework.web.bind.annotation.*;
