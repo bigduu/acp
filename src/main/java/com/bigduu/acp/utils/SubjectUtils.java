@@ -7,6 +7,7 @@ import lombok.Data;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STHighlightColor;
+import org.springframework.security.core.parameters.P;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class SubjectUtils {
     private static String SPLIT = " ";
     
     
-    public List<Subject> getSubjectList(){
+    public List<Subject> getSubjectList() {
         buildSubjectParagraph();
         return buildSubject();
     }
@@ -31,24 +32,24 @@ public class SubjectUtils {
         for (int i = 0; i < this.paragraphList.size(); i++) {
             XWPFParagraph xwpfParagraph = this.paragraphList.get(i);
             String paragraphText = xwpfParagraph.getText();
-            if (paragraphText.contains("单选题")){
+            if (paragraphText.contains("单选题")) {
                 this.subjectType = SubjectType.SINGLE_CHOICE;
-            } else if (paragraphText.contains("多选题")){
+            } else if (paragraphText.contains("多选题")) {
                 this.subjectType = SubjectType.MULTIPLE_CHOICE;
-            } else if (paragraphText.contains("判断题")){
+            } else if (paragraphText.contains("判断题")) {
                 this.subjectType = SubjectType.JUDGE;
             } else {
                 boolean matches = paragraphText.matches(NUMBER);
-                if (!paragraphText.isEmpty() && matches){
+                if (!paragraphText.isEmpty() && matches) {
                     XWPFParagraph xwpfParagraph1 = this.paragraphList.get(i + 1);
-                    buildSubjectParagraph(xwpfParagraph,xwpfParagraph1);
+                    buildSubjectParagraph(xwpfParagraph, xwpfParagraph1);
                     i++;
                 }
             }
         }
     }
     
-    private void buildSubjectParagraph(XWPFParagraph question,XWPFParagraph options){
+    private void buildSubjectParagraph(XWPFParagraph question, XWPFParagraph options) {
         SubjectParagraph subjectParagraph = new SubjectParagraph();
         subjectParagraph.setQuestion(question);
         subjectParagraph.setOptions(options);
@@ -56,7 +57,7 @@ public class SubjectUtils {
         this.subjectParagraphs.add(subjectParagraph);
     }
     
-    private List<Subject> buildSubject(){
+    private List<Subject> buildSubject() {
         List<Subject> subjects = new ArrayList<>();
         for (SubjectParagraph subjectParagraph : this.subjectParagraphs) {
             List<Option> options = getOptions(subjectParagraph);
@@ -74,8 +75,8 @@ public class SubjectUtils {
         substring = removeChars(substring, "、");
         substring = removeSpace(substring);
         String trim = substring.trim();
-    
-        switch (type){
+        
+        switch (type) {
             case SINGLE_CHOICE:
                 SingleChoiceSubject singleChoiceSubject = new SingleChoiceSubject();
                 singleChoiceSubject.setMark(1);
@@ -105,82 +106,114 @@ public class SubjectUtils {
     }
     
     
-    private List<Option> getAnswers(SubjectParagraph subjectParagraph){
+    private List<Option> getAnswers(SubjectParagraph subjectParagraph) {
         List<XWPFRun> runs = subjectParagraph.getOptions().getRuns();
-        
         List<XWPFRun> clearRun = DocUtils.getClearRun(runs);
-        
         ArrayList<Option> answers = new ArrayList<>();
-        
         for (XWPFRun run : clearRun) {
             STHighlightColor.Enum textHightlightColor = run.getTextHightlightColor();
-            if (!textHightlightColor.toString().equals("none")){
-                Option option = new Option();
+            if (!textHightlightColor.toString().equals("none")) {
                 String string = run.toString();
-                String removeSpace = removeSpace(string);
-                String trim = removeSpace.trim();
-                setOptionIndex(option, trim);
-                if (option.getIndex() != null){
-                    answers.add(option);
+                String[] cusSplit = getCusSplit(string);
+                for (String s : cusSplit) {
+                    if (s.trim().isEmpty()){
+                        continue;
+                    }
+                    Option option = new Option();
+                    String removeSpace = removeSpace(s);
+                    String trim = removeSpace.trim();
+                    setOptionIndex(option, trim);
+                    if (option.getIndex() != null) {
+                        option.setDescription(trim);
+                        answers.add(option);
+                    }
                 }
             }
         }
         return answers;
     }
     
-    private String removeChars(String origin,String target){
+    private String removeChars(String origin, String target) {
         String replace = origin;
         boolean contains = replace.contains(target);
-        while (contains){
+        while (contains) {
             replace = replace.replace(target, "");
             contains = replace.contains(target);
         }
         return replace;
     }
     
-    private String removeSpace(String text){
-        return removeChars(text,SPLIT);
+    private String removeSpace(String text) {
+        return removeChars(text, SPLIT);
     }
     
     private void setOptionIndex(Option option, String trim) {
-        if (trim.isEmpty()){
+        if (trim.isEmpty()) {
             return;
         }
-        if (trim.startsWith("是")){
+        if (trim.matches("[A-Za-z]{2,}.*")){
+            return;
+        }
+        if (trim.startsWith("是") && trim.length() == 1) {
             option.setIndex(AnswerType.TRUE);
-        }else if (trim.startsWith("否")){
+        } else if (trim.startsWith("否")&& trim.length() == 1) {
             option.setIndex(AnswerType.FALSE);
-        }else if (trim.startsWith("A")){
+        } else if (trim.startsWith("A")) {
             option.setIndex(AnswerType.A);
-        }else if (trim.startsWith("B")){
+        } else if (trim.startsWith("B")) {
             option.setIndex(AnswerType.B);
-        }else if (trim.startsWith("C")){
+        } else if (trim.startsWith("C")) {
             option.setIndex(AnswerType.C);
-        } else if (trim.startsWith("D")){
+        } else if (trim.startsWith("D")) {
             option.setIndex(AnswerType.D);
-        } else if (trim.startsWith("E")){
+        } else if (trim.startsWith("E")) {
             option.setIndex(AnswerType.E);
-        }else if (trim.startsWith("F")){
+        } else if (trim.startsWith("F")) {
             option.setIndex(AnswerType.F);
-        }else if (trim.startsWith("G")){
+        } else if (trim.startsWith("G")) {
             option.setIndex(AnswerType.G);
         }
     }
     
-    private List<Option> getOptions(SubjectParagraph subjectParagraph){
+    private List<Option> getOptions(SubjectParagraph subjectParagraph) {
         String text = subjectParagraph.getOptions().getText();
-        String[] split = text.split(SPLIT);
+        text = getCusTrim(text);
+        String[] split = null;
+        split = getCusSplit(text);
         ArrayList<Option> options = new ArrayList<>();
         for (String s : split) {
             String trim = s.trim();
+            if (trim.isEmpty()){
+                continue;
+            }
             Option option = new Option();
             setOptionIndex(option, trim);
             option.setDescription(trim);
-            if (option.getIndex() != null){
+            if (option.getIndex() != null) {
                 options.add(option);
             }
         }
         return options;
+    }
+    
+    private String[] getCusSplit(String text) {
+        String[] split;
+        if (!text.contains(SPLIT)) {
+            split = text.split(" ");
+        } else {
+            split = text.split(SPLIT);
+        }
+        return split;
+    }
+    
+    private String getCusTrim(String text) {
+        if (text.indexOf(SPLIT) == 0) {
+            text = text.substring(1);
+        }
+        if (text.indexOf(SPLIT) == text.length()) {
+            text = text.substring(0, text.length() - 1);
+        }
+        return text;
     }
     
     
