@@ -42,27 +42,44 @@ class AcpApplicationTests {
     
     @Test
     void contextLoads() throws IOException, OpenXML4JException {
-        String path = "src/main/resources/ACP弹性云计算600道题带答案.docx";
+//        String path = "src/main/resources/ACP弹性云计算600道题带答案.docx";
+        String path = "C:\\Users\\mugeng.du\\IdeaProjects\\acp\\src\\main\\resources\\static\\doc\\ACP弹性云计算600道题带答案.docx";
         File file = new File(path);
         List<XWPFParagraph> paragraphs = DocUtils.getParagraphs(file);
         SubjectUtils subjectUtils = new SubjectUtils();
         subjectUtils.setParagraphList(paragraphs);
         List<Subject> subjectList = subjectUtils.getSubjectList();
+        SingleChoiceSubject single = null;
+        MultipleChoiceSubject multiple = null;
+        JudgeSubject judge = null;
         for (Subject subject : subjectList) {
+            if (subject.getAnswer().size() == 0){
+                System.out.println(subject.getQuestion());
+            }
             if (subject instanceof SingleChoiceSubject){
-                SingleChoiceSubject subject1 = (SingleChoiceSubject) subject;
-                singleChoiceSubjectRepository.save(subject1);
+                single = (SingleChoiceSubject) subject;
+//                singleChoiceSubjectRepository.save(subject1);
             }
             if (subject instanceof MultipleChoiceSubject){
-                MultipleChoiceSubject subject1 = (MultipleChoiceSubject) subject;
-                multipleChoiceSubjectRepository.save(subject1);
+                multiple = (MultipleChoiceSubject) subject;
+                String question = multiple.getQuestion();
+                int 正确的个数 = question.indexOf("正确答案的数量");
+                int 正确答案数量 = question.indexOf("正确答案数量");
+                if (正确的个数 == -1 && 正确答案数量==-1){
+                    System.out.println(question);
+                } else{
+                
+                }
+                
+                
+//                multipleChoiceSubjectRepository.save(subject1);
             }
             if (subject instanceof JudgeSubject){
-                JudgeSubject subject1 = (JudgeSubject) subject;
-                judgeSubjectRepository.save(subject1);
+                judge = (JudgeSubject) subject;
+//                judgeSubjectRepository.save(subject1);
             }
         }
-        
+        System.out.println("1111");
     }
     
     @Test

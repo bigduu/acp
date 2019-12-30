@@ -9,6 +9,9 @@ public enum AnswerType {
     B,
     C,
     D,
+    E,
+    F,
+    G,
     TRUE,
     FALSE
 }

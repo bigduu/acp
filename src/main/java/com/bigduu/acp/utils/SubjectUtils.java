@@ -71,12 +71,16 @@ public class SubjectUtils {
                                 SubjectType type) {
         String text = subjectParagraph.getQuestion().getText();
         String substring = text.substring(2);
+        substring = removeChars(substring, "、");
+        substring = removeSpace(substring);
+        String trim = substring.trim();
+    
         switch (type){
             case SINGLE_CHOICE:
                 SingleChoiceSubject singleChoiceSubject = new SingleChoiceSubject();
                 singleChoiceSubject.setMark(1);
                 singleChoiceSubject.setOptions(options);
-                singleChoiceSubject.setQuestion(substring);
+                singleChoiceSubject.setQuestion(trim);
                 singleChoiceSubject.setAnswer(answers);
                 subjects.add(singleChoiceSubject);
                 break;
@@ -84,7 +88,7 @@ public class SubjectUtils {
                 MultipleChoiceSubject multipleChoiceSubject = new MultipleChoiceSubject();
                 multipleChoiceSubject.setMark(1);
                 multipleChoiceSubject.setOptions(options);
-                multipleChoiceSubject.setQuestion(substring);
+                multipleChoiceSubject.setQuestion(trim);
                 multipleChoiceSubject.setAnswer(answers);
                 subjects.add(multipleChoiceSubject);
                 break;
@@ -92,10 +96,11 @@ public class SubjectUtils {
                 JudgeSubject judgeSubject = new JudgeSubject();
                 judgeSubject.setMark(1);
                 judgeSubject.setOptions(options);
-                judgeSubject.setQuestion(substring);
+                judgeSubject.setQuestion(trim);
                 judgeSubject.setAnswer(answers);
                 subjects.add(judgeSubject);
                 break;
+            default:
         }
     }
     
@@ -123,14 +128,18 @@ public class SubjectUtils {
         return answers;
     }
     
-    private String removeSpace(String text){
-        String replace = text;
-        boolean contains = replace.contains(SPLIT);
+    private String removeChars(String origin,String target){
+        String replace = origin;
+        boolean contains = replace.contains(target);
         while (contains){
-            replace = replace.replace(SPLIT, "");
-            contains = replace.contains(SPLIT);
+            replace = replace.replace(target, "");
+            contains = replace.contains(target);
         }
         return replace;
+    }
+    
+    private String removeSpace(String text){
+        return removeChars(text,SPLIT);
     }
     
     private void setOptionIndex(Option option, String trim) {
@@ -149,6 +158,12 @@ public class SubjectUtils {
             option.setIndex(AnswerType.C);
         } else if (trim.startsWith("D")){
             option.setIndex(AnswerType.D);
+        } else if (trim.startsWith("E")){
+            option.setIndex(AnswerType.E);
+        }else if (trim.startsWith("F")){
+            option.setIndex(AnswerType.F);
+        }else if (trim.startsWith("G")){
+            option.setIndex(AnswerType.G);
         }
     }
     

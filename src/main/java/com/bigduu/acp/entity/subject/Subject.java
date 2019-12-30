@@ -50,14 +50,5 @@ public class Subject {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private transient Boolean did;
     
-    /**
-     * @return 判断该题是否正确
-     */
-    public Boolean isRight(){
-        List<Option> answer = this.getAnswer();
-        List<Option> solution = this.getSolution();
-        return answer.equals(solution);
-    }
-    
     
 }

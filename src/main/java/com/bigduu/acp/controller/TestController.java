@@ -34,7 +34,8 @@ public class TestController extends BaseController<Test> {
     }
     @GetMapping("/default")
     public Test getDefaultTest(){
-        return testService.getDefaultTest();
+        Test defaultTest = testService.getDefaultTest();
+        return defaultTest;
     }
     
     @GetMapping("/single")

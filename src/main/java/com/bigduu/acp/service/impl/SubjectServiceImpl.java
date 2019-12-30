@@ -93,22 +93,34 @@ public class SubjectServiceImpl implements SubjectService {
         }
     }
     
-    private List<? extends Subject> getSubjectsCache(SubjectType subjectType, MongoRepository<? extends Subject, String> subjectTypeService) {
+    /**
+     * 缓存所有题目
+     * @param subjectType 缓存题目的类型
+     * @param mongoRepository 缓存题目的repository
+     * @return 获取题目
+     */
+    private List<? extends Subject> getSubjectsCache(SubjectType subjectType, MongoRepository<? extends Subject, String> mongoRepository) {
         if (SUBJECT_CACHE.get(subjectType.toString()) == null) {
             synchronized (this) {
                 if (SUBJECT_CACHE.get(subjectType.toString()) == null) {
-                    SUBJECT_CACHE.put(subjectType.toString(),subjectTypeService.findAll());
+                    SUBJECT_CACHE.put(subjectType.toString(),mongoRepository.findAll());
                 }
             }
         }
         return SUBJECT_CACHE.get(subjectType.toString());
     }
     
-    private Long getCountCache(SubjectType subjectType, MongoRepository<? extends Subject, String> subjectTypeService) {
+    /**
+     * 缓存所有题目
+     * @param subjectType 缓存题目的类型
+     * @param mongoRepository 缓存题目的repository
+     * @return 获取题目
+     */
+    private Long getCountCache(SubjectType subjectType, MongoRepository<? extends Subject, String> mongoRepository) {
         if (COUNT_CACHE.get(subjectType.toString()) == null) {
             synchronized (this) {
                 if (COUNT_CACHE.get(subjectType.toString()) == null) {
-                    COUNT_CACHE.put(subjectType.toString(),subjectTypeService.count());
+                    COUNT_CACHE.put(subjectType.toString(),mongoRepository.count());
                 }
             }
         }
