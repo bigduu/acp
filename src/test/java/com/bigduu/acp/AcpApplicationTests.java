@@ -68,7 +68,12 @@ class AcpApplicationTests {
                 if (正确的个数 == -1 && 正确答案数量==-1){
                     System.out.println(question);
                 } else{
-                
+                    String trim = question.trim();
+                    String substring = trim.substring(trim.length() - 3, trim.length() - 2);
+                    Integer size = subject.getAnswer().size();
+                    if (!substring.equals(size.toString())){
+                        System.out.println(question);
+                    }
                 }
                 
                 
