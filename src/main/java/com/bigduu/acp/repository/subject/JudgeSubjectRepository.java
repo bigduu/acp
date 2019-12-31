@@ -1,6 +1,6 @@
 package com.bigduu.acp.repository.subject;
 
-import com.bigduu.acp.common.CSRE.repository.BaseRepository;
+import com.bigduu.acp.common.baseprocesshandler.repository.BaseRepository;
 import com.bigduu.acp.entity.subject.subsubject.JudgeSubject;
 
 import java.util.Optional;

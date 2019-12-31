@@ -19,7 +19,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class ErrorSubject extends Subject {
     @Id
     private String id;
-    private String type = "single";
+    private String type;
     private String username;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Boolean right;

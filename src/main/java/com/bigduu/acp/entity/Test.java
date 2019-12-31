@@ -1,6 +1,7 @@
 package com.bigduu.acp.entity;
 
-import com.bigduu.acp.common.CSRE.entity.BaseEntity;
+import com.bigduu.acp.common.baseprocesshandler.entity.BaseEntity;
+import com.bigduu.acp.entity.subject.Subject;
 import com.bigduu.acp.entity.subject.subsubject.ErrorSubject;
 import com.bigduu.acp.entity.subject.subsubject.JudgeSubject;
 import com.bigduu.acp.entity.subject.subsubject.MultipleChoiceSubject;
@@ -28,13 +29,13 @@ public class Test extends BaseEntity {
     private String userId;
     
     @DBRef
-    private List<SingleChoiceSubject> singleChoiceSubjects;
+    private List<? extends Subject> singleChoiceSubjects;
     
     @DBRef
-    private List<MultipleChoiceSubject> multipleChoiceSubjects;
+    private List<? extends Subject> multipleChoiceSubjects;
     
     @DBRef
-    private List<JudgeSubject> judgeSubjects;
+    private List<? extends Subject> judgeSubjects;
     
     private Long time;
     

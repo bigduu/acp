@@ -1,6 +1,6 @@
 package com.bigduu.acp.entity;
 
-import com.bigduu.acp.common.CSRE.entity.BaseEntity;
+import com.bigduu.acp.common.baseprocesshandler.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;

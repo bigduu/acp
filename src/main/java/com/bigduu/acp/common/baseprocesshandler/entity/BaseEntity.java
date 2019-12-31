@@ -1,4 +1,4 @@
-package com.bigduu.acp.common.CSRE.entity;
+package com.bigduu.acp.common.baseprocesshandler.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Version;

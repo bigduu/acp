@@ -1,11 +1,13 @@
 package com.bigduu.acp.entity;
 
-import com.bigduu.acp.common.CSRE.entity.BaseEntity;
+import com.bigduu.acp.common.baseprocesshandler.entity.BaseEntity;
+import com.bigduu.acp.entity.subject.subsubject.ErrorSubject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -29,11 +31,14 @@ public class User extends BaseEntity {
     
     private Integer lastMark;
     
+    @DBRef
     private Test lastTest;
     
-    private List<String> history;
+    @DBRef
+    private List<Test> history;
     
-    private List<String> errorHistory;
+    @DBRef
+    private List<ErrorSubject> errorHistory;
     
     public void setPassword(String password) {
         this.password = new BCryptPasswordEncoder().encode(password);

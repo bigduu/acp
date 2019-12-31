@@ -1,6 +1,6 @@
 package com.bigduu.acp.controller;
 
-import com.bigduu.acp.common.CSRE.controller.BaseController;
+import com.bigduu.acp.common.baseprocesshandler.controller.BaseController;
 import com.bigduu.acp.entity.Test;
 import com.bigduu.acp.service.TestService;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +34,7 @@ public class TestController extends BaseController<Test> {
     }
     @GetMapping("/default")
     public Test getDefaultTest(){
-        Test defaultTest = testService.getDefaultTest();
-        return defaultTest;
+        return testService.getDefaultTest();
     }
     
     @GetMapping("/single")
@@ -51,6 +50,11 @@ public class TestController extends BaseController<Test> {
     @GetMapping("/judge")
     public Test getJudgeChoiceOnlyTest(){
         return testService.getJudgeChoiceOnlyTest();
+    }
+    
+    @GetMapping("/error")
+    public Test getErrorTest(){
+        return testService.getErrorSubjectTest();
     }
     
 }

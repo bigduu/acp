@@ -1,6 +1,6 @@
 package com.bigduu.acp.controller;
 
-import com.bigduu.acp.common.CSRE.controller.BaseController;
+import com.bigduu.acp.common.baseprocesshandler.controller.BaseController;
 import com.bigduu.acp.entity.User;
 import com.bigduu.acp.service.UserService;
 import org.springframework.security.core.Authentication;

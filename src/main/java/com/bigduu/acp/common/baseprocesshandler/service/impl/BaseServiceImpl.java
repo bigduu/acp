@@ -1,8 +1,8 @@
-package com.bigduu.acp.common.CSRE.service.impl;
+package com.bigduu.acp.common.baseprocesshandler.service.impl;
 
-import com.bigduu.acp.common.CSRE.entity.BaseEntity;
-import com.bigduu.acp.common.CSRE.repository.BaseRepository;
-import com.bigduu.acp.common.CSRE.service.BaseService;
+import com.bigduu.acp.common.baseprocesshandler.entity.BaseEntity;
+import com.bigduu.acp.common.baseprocesshandler.repository.BaseRepository;
+import com.bigduu.acp.common.baseprocesshandler.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

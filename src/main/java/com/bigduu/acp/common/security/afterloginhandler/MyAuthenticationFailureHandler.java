@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 /**
  * 自定义登陆失败处理
+ * @author mugeng.du
  */
 @Component
 public class MyAuthenticationFailureHandler implements AuthenticationFailureHandler {
