@@ -6,9 +6,7 @@ import com.bigduu.acp.entity.subject.subsubject.ErrorSubject;
 import com.bigduu.acp.entity.subject.subsubject.JudgeSubject;
 import com.bigduu.acp.entity.subject.subsubject.MultipleChoiceSubject;
 import com.bigduu.acp.entity.subject.subsubject.SingleChoiceSubject;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,21 +18,20 @@ import java.util.List;
  */
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Document
 @EqualsAndHashCode(callSuper = true)
 public class Test extends BaseEntity {
     @Id
     private String id;
     
-    private String userId;
+    private User user;
     
-    @DBRef
     private List<? extends Subject> singleChoiceSubjects;
     
-    @DBRef
     private List<? extends Subject> multipleChoiceSubjects;
     
-    @DBRef
     private List<? extends Subject> judgeSubjects;
     
     private Long time;
@@ -42,4 +39,5 @@ public class Test extends BaseEntity {
     private Integer mark;
     
     private List<ErrorSubject> errorSubject;
+    
 }

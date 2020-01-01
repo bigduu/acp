@@ -9,6 +9,7 @@ import com.bigduu.acp.repository.TestRepository;
 import com.bigduu.acp.service.ErrorSubjectService;
 import com.bigduu.acp.service.SubjectService;
 import com.bigduu.acp.service.TestService;
+import com.bigduu.acp.utils.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
@@ -78,11 +79,7 @@ public class TestServiceImpl extends BaseServiceImpl<Test> implements TestServic
             log.error("生成全部题目时发生错误");
         }
         
-        return Test.builder()
-                .singleChoiceSubjects(allSingleTypeOfSubject)
-                .multipleChoiceSubjects(allMultipleTypeOfSubject)
-                .judgeSubjects(allJudgeTypeOfSubject)
-                .build();
+        return getTest(allSingleTypeOfSubject, allMultipleTypeOfSubject, allJudgeTypeOfSubject);
     }
     
     @Override
@@ -93,17 +90,17 @@ public class TestServiceImpl extends BaseServiceImpl<Test> implements TestServic
     
     @Override
     public Test getSingleChoiceOnlyTest() {
-        return generateTest(100, 0, 0);
+        return generateTest(300, 0, 0);
     }
     
     @Override
     public Test getMultipleChoiceOnlyTest() {
-        return generateTest(0, 100, 0);
+        return generateTest(0, 180, 0);
     }
     
     @Override
     public Test getJudgeChoiceOnlyTest() {
-        return generateTest(0, 0, 100);
+        return generateTest(0, 0, 120);
     }
     
     @Override
@@ -122,11 +119,7 @@ public class TestServiceImpl extends BaseServiceImpl<Test> implements TestServic
                 errorJudgeTypeOfSubject.add(errorSubject);
             }
         }
-        return Test.builder()
-                .singleChoiceSubjects(errorSingleTypeOfSubject)
-                .multipleChoiceSubjects(errorMultipleTypeOfSubject)
-                .judgeSubjects(errorJudgeTypeOfSubject)
-                .build();
+        return getTest(errorSingleTypeOfSubject, errorMultipleTypeOfSubject, errorJudgeTypeOfSubject);
     }
     
     private Test generateTest(Integer single, Integer multiple, Integer judge) {
@@ -141,10 +134,19 @@ public class TestServiceImpl extends BaseServiceImpl<Test> implements TestServic
         } catch (Exception e) {
             log.error(e.getMessage());
         }
-        return Test.builder()
+        
+        return getTest(randomSingleTypeOfSubject, randomMultipleTypeOfSubject, randomJudgeTypeOfSubject);
+    }
+    
+    private Test getTest(List<? extends Subject> randomSingleTypeOfSubject, List<? extends Subject> randomMultipleTypeOfSubject, List<? extends Subject> randomJudgeTypeOfSubject) {
+        Test build = Test.builder()
                 .singleChoiceSubjects(randomSingleTypeOfSubject)
                 .multipleChoiceSubjects(randomMultipleTypeOfSubject)
                 .judgeSubjects(randomJudgeTypeOfSubject)
+                .user(UserUtils.getOnlineUser())
                 .build();
+        return testRepository.save(build);
     }
+    
+    
 }

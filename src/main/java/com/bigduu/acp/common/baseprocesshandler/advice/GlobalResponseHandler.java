@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @author mugeng.du
  */
 @Slf4j
+@RestController
 @RestControllerAdvice(annotations = RestController.class)
 public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     static Builder<String> globalResponseBodyBuilder = () -> "com.bigduu.acp.common.baseprocesshandler.controller.advice.GlobalResponseBody";
@@ -27,6 +29,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     }
     
     @Override
+    @ResponseBody
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         final String name = returnType.getParameterType().getName();
         Builder<String> stringBuilder = () -> "void";

@@ -31,13 +31,11 @@ public class User extends BaseEntity {
     
     private Integer lastMark;
     
-    @DBRef
     private Test lastTest;
     
-    @DBRef
+    
     private List<Test> history;
     
-    @DBRef
     private List<ErrorSubject> errorHistory;
     
     public void setPassword(String password) {

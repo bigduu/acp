@@ -3,6 +3,7 @@ package com.bigduu.acp.controller;
 import com.bigduu.acp.common.baseprocesshandler.controller.BaseController;
 import com.bigduu.acp.entity.User;
 import com.bigduu.acp.service.UserService;
+import com.bigduu.acp.utils.UserUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +32,7 @@ public class UserController extends BaseController<User> {
     }
     
     @GetMapping("/online")
-    public String onlineUser(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getName();
+    public User onlineUser(){
+        return UserUtils.getOnlineUser();
     }
 }

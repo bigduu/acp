@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,6 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Data
 @Document
+@NoArgsConstructor
 @JsonTypeName(value = "error")
 @EqualsAndHashCode(callSuper = true)
 public class ErrorSubject extends Subject {
