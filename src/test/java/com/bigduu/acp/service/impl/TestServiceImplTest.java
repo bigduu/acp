@@ -1,5 +1,6 @@
 package com.bigduu.acp.service.impl;
 
+import com.bigduu.acp.common.baseprocesshandler.exception.AlertException;
 import com.bigduu.acp.service.TestService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,31 +20,31 @@ class TestServiceImplTest {
     private TestService testService;
     
     @Test
-    void getAllSubjectTest() {
+    void getAllSubjectTest() throws AlertException {
         com.bigduu.acp.entity.Test allSubjectTest = testService.getAllSubjectTest();
         System.out.println(allSubjectTest);
     }
     
     @Test
-    void getOneDefaultTest() {
+    void getOneDefaultTest() throws AlertException {
         com.bigduu.acp.entity.Test oneDefaultTest = testService.getDefaultTest();
         System.out.println(oneDefaultTest);
     }
     
     @Test
-    void getSingleChoiceOnlyTest() {
+    void getSingleChoiceOnlyTest() throws AlertException {
         com.bigduu.acp.entity.Test singleChoiceOnlyTest = testService.getSingleChoiceOnlyTest();
         System.out.println(singleChoiceOnlyTest);
     }
     
     @Test
-    void getMultipleChoiceOnlyTest() {
+    void getMultipleChoiceOnlyTest() throws AlertException {
         com.bigduu.acp.entity.Test multipleChoiceOnlyTest = testService.getMultipleChoiceOnlyTest();
         System.out.println(multipleChoiceOnlyTest);
     }
     
     @Test
-    void getJudgeChoiceOnlyTest() {
+    void getJudgeChoiceOnlyTest() throws AlertException {
         com.bigduu.acp.entity.Test judgeChoiceOnlyTest = testService.getJudgeChoiceOnlyTest();
         System.out.println(judgeChoiceOnlyTest);
     }

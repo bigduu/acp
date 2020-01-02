@@ -72,7 +72,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
     
     private Integer getRandomNumber(int end) {
-        return random.nextInt(end + 1);
+        return random.nextInt(end);
     }
     
     @Override
@@ -84,7 +84,7 @@ public class SubjectServiceImpl implements SubjectService {
     public List<? extends Subject> getRandomTypeOfSubject(SubjectType subjectType, Integer number) throws Exception {
         MongoRepository<? extends Subject, String> subjectTypeService = getSubjectTypeService(subjectType);
         Long count = getCountCache(subjectType, subjectTypeService);
-        if (number > count) {
+        if (number  > count) {
             log.error("生成随即题目，但是题目没有足够数量");
             throw new Exception("该题型没有足够的数量");
         } else {

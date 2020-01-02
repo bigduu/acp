@@ -26,7 +26,7 @@ public class Test extends BaseEntity {
     @Id
     private String id;
     
-    private User user;
+    private String username;
     
     private List<? extends Subject> singleChoiceSubjects;
     

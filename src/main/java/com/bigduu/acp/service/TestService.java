@@ -1,5 +1,6 @@
 package com.bigduu.acp.service;
 
+import com.bigduu.acp.common.baseprocesshandler.exception.AlertException;
 import com.bigduu.acp.common.baseprocesshandler.service.BaseService;
 import com.bigduu.acp.entity.Test;
 import com.bigduu.acp.entity.User;
@@ -23,15 +24,15 @@ public interface TestService extends BaseService<Test> {
      */
     List<Test> getAllByUser(User user) throws Exception;
     
-    Test getAllSubjectTest();
+    Test getAllSubjectTest() throws AlertException;
     
-    Test getDefaultTest();
+    Test getDefaultTest() throws AlertException;
     
-    Test getSingleChoiceOnlyTest();
+    Test getSingleChoiceOnlyTest() throws AlertException;
     
-    Test getMultipleChoiceOnlyTest();
+    Test getMultipleChoiceOnlyTest() throws AlertException;
     
-    Test getJudgeChoiceOnlyTest();
+    Test getJudgeChoiceOnlyTest() throws AlertException;
     
-    Test getErrorSubjectTest();
+    Test getErrorSubjectTest() throws AlertException;
 }

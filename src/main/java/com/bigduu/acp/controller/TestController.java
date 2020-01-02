@@ -1,6 +1,7 @@
 package com.bigduu.acp.controller;
 
 import com.bigduu.acp.common.baseprocesshandler.controller.BaseController;
+import com.bigduu.acp.common.baseprocesshandler.exception.AlertException;
 import com.bigduu.acp.entity.Test;
 import com.bigduu.acp.service.TestService;
 import org.springframework.web.bind.annotation.*;
@@ -26,34 +27,34 @@ public class TestController extends BaseController<Test> {
     }
     
     @GetMapping("/allSubject")
-    public Test getAllTest(){
+    public Test getAllTest() throws AlertException {
         if (allTest == null){
             allTest = testService.getAllSubjectTest();
         }
         return allTest;
     }
     @GetMapping("/default")
-    public Test getDefaultTest(){
+    public Test getDefaultTest() throws AlertException {
         return testService.getDefaultTest();
     }
     
     @GetMapping("/single")
-    public Test getSingleChoiceOnlyTest(){
+    public Test getSingleChoiceOnlyTest() throws AlertException {
         return testService.getSingleChoiceOnlyTest();
     }
     
     @GetMapping("/multiple")
-    public Test getMultipleChoiceOnlyTest(){
+    public Test getMultipleChoiceOnlyTest() throws AlertException {
         return testService.getMultipleChoiceOnlyTest();
     }
     
     @GetMapping("/judge")
-    public Test getJudgeChoiceOnlyTest(){
+    public Test getJudgeChoiceOnlyTest() throws AlertException {
         return testService.getJudgeChoiceOnlyTest();
     }
     
     @GetMapping("/error")
-    public Test getErrorTest(){
+    public Test getErrorTest() throws AlertException {
         return testService.getErrorSubjectTest();
     }
     

@@ -23,7 +23,6 @@ public class User extends BaseEntity {
     @Id
     private String id;
     
-    @Indexed(unique = true)
     private String username;
     
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -31,9 +30,10 @@ public class User extends BaseEntity {
     
     private Integer lastMark;
     
+    @DBRef(lazy = true)
     private Test lastTest;
     
-    
+    @DBRef(lazy = true)
     private List<Test> history;
     
     private List<ErrorSubject> errorHistory;

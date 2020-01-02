@@ -13,5 +13,5 @@ import java.util.List;
  * @date 2019/12/2121:26
  */
 public interface TestRepository extends BaseRepository<Test> {
-    List<Test> findAllByUserId(String userId);
+    List<Test> findAllByUsername(String username);
 }

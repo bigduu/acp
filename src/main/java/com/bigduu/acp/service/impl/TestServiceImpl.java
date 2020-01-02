@@ -1,5 +1,6 @@
 package com.bigduu.acp.service.impl;
 
+import com.bigduu.acp.common.baseprocesshandler.exception.AlertException;
 import com.bigduu.acp.common.baseprocesshandler.service.impl.BaseServiceImpl;
 import com.bigduu.acp.entity.Test;
 import com.bigduu.acp.entity.User;
@@ -9,10 +10,10 @@ import com.bigduu.acp.repository.TestRepository;
 import com.bigduu.acp.service.ErrorSubjectService;
 import com.bigduu.acp.service.SubjectService;
 import com.bigduu.acp.service.TestService;
+import com.bigduu.acp.service.UserService;
 import com.bigduu.acp.utils.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,16 +33,18 @@ public class TestServiceImpl extends BaseServiceImpl<Test> implements TestServic
     private final SubjectService subjectService;
     private final TestRepository testRepository;
     private final ErrorSubjectService errorSubjectService;
+    private final UserService userService;
     
     private final static Integer SINGLE_CHOICE_SUBJECT_NUMBER = 50;
     private final static Integer MULTIPLE_CHOICE_SUBJECT_NUMBER = 30;
     private final static Integer JUDGE_SUBJECT_NUMBER = 20;
     
-    public TestServiceImpl(SubjectService subjectService, TestRepository testRepository, ErrorSubjectService errorSubjectService) {
+    public TestServiceImpl(SubjectService subjectService, TestRepository testRepository, ErrorSubjectService errorSubjectService, UserService userService) {
         super(testRepository);
         this.subjectService = subjectService;
         this.testRepository = testRepository;
         this.errorSubjectService = errorSubjectService;
+        this.userService = userService;
     }
     
     
@@ -57,16 +60,16 @@ public class TestServiceImpl extends BaseServiceImpl<Test> implements TestServic
     
     @Override
     public List<Test> getAllByUser(User user) throws Exception {
-        String id = user.getId();
-        if (id == null) {
+        String username = user.getUsername();
+        if (username.isEmpty()) {
             throw new Exception("根据用户ID获取TestList 用户ID为null");
         }
-        return testRepository.findAllByUserId(id);
+        return testRepository.findAllByUsername(username);
     }
     
     
     @Override
-    public Test getAllSubjectTest() {
+    public Test getAllSubjectTest() throws AlertException {
         List<? extends Subject> allSingleTypeOfSubject = null;
         List<? extends Subject> allMultipleTypeOfSubject = null;
         List<? extends Subject> allJudgeTypeOfSubject = null;
@@ -83,28 +86,28 @@ public class TestServiceImpl extends BaseServiceImpl<Test> implements TestServic
     }
     
     @Override
-    public Test getDefaultTest() {
+    public Test getDefaultTest() throws AlertException {
         return generateTest(SINGLE_CHOICE_SUBJECT_NUMBER, MULTIPLE_CHOICE_SUBJECT_NUMBER, JUDGE_SUBJECT_NUMBER);
     }
     
     
     @Override
-    public Test getSingleChoiceOnlyTest() {
+    public Test getSingleChoiceOnlyTest() throws AlertException {
         return generateTest(300, 0, 0);
     }
     
     @Override
-    public Test getMultipleChoiceOnlyTest() {
+    public Test getMultipleChoiceOnlyTest() throws AlertException {
         return generateTest(0, 180, 0);
     }
     
     @Override
-    public Test getJudgeChoiceOnlyTest() {
+    public Test getJudgeChoiceOnlyTest() throws AlertException {
         return generateTest(0, 0, 120);
     }
     
     @Override
-    public Test getErrorSubjectTest() {
+    public Test getErrorSubjectTest() throws AlertException {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         List<ErrorSubject> allByUsername = errorSubjectService.findAllByUsername(name);
         List<ErrorSubject> errorSingleTypeOfSubject = new ArrayList<>();
@@ -122,7 +125,7 @@ public class TestServiceImpl extends BaseServiceImpl<Test> implements TestServic
         return getTest(errorSingleTypeOfSubject, errorMultipleTypeOfSubject, errorJudgeTypeOfSubject);
     }
     
-    private Test generateTest(Integer single, Integer multiple, Integer judge) {
+    private Test generateTest(Integer single, Integer multiple, Integer judge) throws AlertException {
         List<? extends Subject> randomSingleTypeOfSubject = null;
         List<? extends Subject> randomMultipleTypeOfSubject = null;
         List<? extends Subject> randomJudgeTypeOfSubject = null;
@@ -138,15 +141,21 @@ public class TestServiceImpl extends BaseServiceImpl<Test> implements TestServic
         return getTest(randomSingleTypeOfSubject, randomMultipleTypeOfSubject, randomJudgeTypeOfSubject);
     }
     
-    private Test getTest(List<? extends Subject> randomSingleTypeOfSubject, List<? extends Subject> randomMultipleTypeOfSubject, List<? extends Subject> randomJudgeTypeOfSubject) {
+    
+    
+    private Test getTest(List<? extends Subject> randomSingleTypeOfSubject, List<? extends Subject> randomMultipleTypeOfSubject, List<? extends Subject> randomJudgeTypeOfSubject) throws AlertException {
+        User onlineUser = UserUtils.getOnlineUser();
         Test build = Test.builder()
                 .singleChoiceSubjects(randomSingleTypeOfSubject)
                 .multipleChoiceSubjects(randomMultipleTypeOfSubject)
                 .judgeSubjects(randomJudgeTypeOfSubject)
-                .user(UserUtils.getOnlineUser())
+                .username(onlineUser.getUsername())
                 .build();
-        return testRepository.save(build);
+        Test save = testRepository.save(build);
+        userService.logTestHistory(onlineUser, save);
+        return save;
     }
+    
     
     
 }
