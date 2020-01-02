@@ -1,6 +1,7 @@
 package com.bigduu.acp.entity.subject;
 
 
+import com.bigduu.acp.entity.subject.subsubject.Comment;
 import com.bigduu.acp.entity.subject.subsubject.ErrorSubject;
 import com.bigduu.acp.entity.subject.subsubject.Option;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -42,10 +43,14 @@ public class Subject {
      */
     private List<Option> answer;
     
+    private String type;
+    
     /**
      * 用户答案
      */
     private List<Option> solution;
+    
+    private List<Comment> comments;
     
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private transient Boolean did;

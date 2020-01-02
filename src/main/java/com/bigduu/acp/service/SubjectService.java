@@ -28,7 +28,11 @@ public interface SubjectService {
      *
      * @param subjectType 获取题目的类型
      * @param number 获取题目的数量
+     * @exception Exception 数据不足
      * @return 返回改数量的该类型的题目
      */
     List<? extends Subject> getRandomTypeOfSubject(SubjectType subjectType,Integer number) throws Exception;
+    
+    <T extends Subject> T comment(T subject);
+    
 }

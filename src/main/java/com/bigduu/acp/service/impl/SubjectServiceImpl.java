@@ -93,6 +93,12 @@ public class SubjectServiceImpl implements SubjectService {
         }
     }
     
+    @Override
+    public <T extends Subject> T comment(T subject) {
+        
+        return null;
+    }
+    
     /**
      * 缓存所有题目
      * @param subjectType 缓存题目的类型

@@ -38,6 +38,5 @@ public class Test extends BaseEntity {
     
     private Integer mark;
     
-    private List<ErrorSubject> errorSubject;
     
 }

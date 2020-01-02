@@ -55,7 +55,7 @@ public class TestServiceImpl extends BaseServiceImpl<Test> implements TestServic
     
     @Override
     public Test update(Test test) {
-        return testRepository.save(test);
+        return super.update(test);
     }
     
     @Override
@@ -155,7 +155,5 @@ public class TestServiceImpl extends BaseServiceImpl<Test> implements TestServic
         userService.logTestHistory(onlineUser, save);
         return save;
     }
-    
-    
     
 }
