@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ import java.util.List;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = ErrorSubject.class,name = "error")
 })
-public class Subject {
+public abstract class Subject implements SubjectIF {
     /**
      * 分数
      */
@@ -42,8 +44,6 @@ public class Subject {
      * 问题答案
      */
     private List<Option> answer;
-    
-    private String type;
     
     /**
      * 用户答案

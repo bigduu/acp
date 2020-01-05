@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
  * @author mugeng.du
@@ -21,6 +22,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class ErrorSubject extends Subject {
     @Id
     private String id;
+    @Field(name = "type")
     private String type;
     private String username;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
